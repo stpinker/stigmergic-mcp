@@ -1,4 +1,4 @@
-# Stigmergic Goal-Field MCP
+# Stigmergic Continuity MCP
 
 Experimental MCP server for cross-conversation continuity via a stigmergic salience field of relations.
 
@@ -85,14 +85,14 @@ Example MCP configuration:
       "command": "stigmergic-mcp",
       "args": [
         "--db-path",
-        "H:\\Work\\MCPs\\stigmergic-mcp\\stigmergic.db"
+        "ABSOLUTE_PATH to database file"
       ]
     }
   }
 }
 ```
 
-Adjust the database path for your machine. The repository includes [mcps.json](mcps.json) as a local example.
+Adjust the database path for your machine. 
 
 ## Tools
 
@@ -293,4 +293,4 @@ Do not log passing mentions, one-off associations, or facts that need a source o
 
 ## License
 
-No license is currently declared. Choose a license before publishing or distributing the project.
+AGPL-3.0-or-later. 
