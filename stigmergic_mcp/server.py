@@ -32,7 +32,7 @@ def sense(conv_id: str, temperature: float = DEFAULT_TEMPERATURE) -> dict:
     """Look at the field. Call it whenever useful.
     `vocabulary` is every word currently in play — **before you write a new endpoint, check this list
     and reuse an existing word if one fits**, so you don't split one relation across two spellings.
-    `gradients` is the top relations right now, hottest first."""
+    `gradients` and `boundaries` are the top relations right now, hottest first."""
     with db._connect() as con:
         db.prune(con)
         return db.sense_data(con, temperature)
@@ -41,12 +41,22 @@ def sense(conv_id: str, temperature: float = DEFAULT_TEMPERATURE) -> dict:
 @mcp.tool()
 def add_gradient(a: str, b: str, conv_id: str) -> dict:
     """Record a relation between two ideas.
-    Only assert a link you'd expect **a different, unrelated conversation to also independently reach.**
+    Gradients are the "rungs" of the field — they connect two endpoints and show a direction of pull.    
+    Only assert a gradient you'd expect **a different, unrelated conversation to also independently reach.**
     Don't log passing mentions — log relations a stranger would re-find.
     If you get "already recorded this conversation," it's counted; move on."""
     a_s, b_s = sorted([a.strip(), b.strip()])
     return db.add_gradient(a_s, b_s, conv_id)
 
+@mcp.tool()
+def add_boundary(a: str, b: str, conv_id: str) -> dict:
+    """Record a boundary between two ideas.
+    Boundaries are the "walls" of the field — they connect two endpoints and show a direction of push.
+    Only assert a boundary you'd expect **a different, unrelated conversation to also independently reach.**
+    Don't log passing mentions — log boundaries a stranger would re-find.
+    If you get "already recorded this conversation," it's counted; move on."""
+    a_s, b_s = sorted([a.strip(), b.strip()])
+    return db.add_boundary(a_s, b_s, conv_id)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Stigmergic Goal-Field MCP server")
