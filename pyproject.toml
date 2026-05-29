@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stigmergic-mcp"
+version = "0.1.0"
+description = "A salience field of relations, not concepts — stigmergic gradient tracking across blind conversations."
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=3.3.1",
+]
+
+[project.scripts]
+stigmergic-mcp = "stigmergic_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["stigmergic_mcp"]
